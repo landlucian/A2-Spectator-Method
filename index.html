@@ -19,7 +19,8 @@ html,body{
   margin:0;
   background:#05060a;
   color:var(--text);
-  overflow:hidden;
+  overflow:auto;
+  scroll-behavior:smooth;
 }
 .bg-video-wrap{
   position:fixed;
@@ -48,12 +49,10 @@ html,body{
 .page{
   position:relative;
   z-index:2;
-  min-height:100vh;
   display:flex;
   align-items:flex-start;
   justify-content:center;
   padding:48px 20px;
-  overflow:auto;
 }
 .card{
   width:100%;
@@ -63,6 +62,7 @@ html,body{
   padding:28px;
   box-shadow:0 10px 30px rgba(2,6,23,0.6);
   backdrop-filter:blur(6px);
+  margin-bottom:60px;
 }
 h1{margin:0 0 6px 0;font-size:26px;}
 .meta{color:var(--muted);font-size:13px;margin-bottom:18px;}
@@ -79,6 +79,18 @@ ul{margin:8px 0 14px 22px;}
 #overlay.hidden{opacity:0;pointer-events:none;}
 #overlay h1{font-size:32px;margin:0 0 20px 0;}
 #overlay p{font-size:16px;color:var(--muted);}
+.method-video{
+  width:100%;
+  border-radius:10px;
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,0.1);
+  cursor:pointer;
+  transition:transform 0.2s ease,opacity 0.2s ease;
+}
+.method-video:hover{
+  transform:scale(1.02);
+  opacity:0.9;
+}
 </style>
 </head>
 <body>
@@ -100,21 +112,26 @@ ul{margin:8px 0 14px 22px;}
     </header>
     <section>
       <p>Hey everyone,</p>
-      <p>After much thought, I’ve decided to step away from the Orion Drift scene. It’s been a long journey, full of bullshit, src leaks, polar issues,  and the 10 minutes of me figuring out exit_spec.</p>
-      <p>Since I made, and started this whole cheating thing for orion drift, I wanted to share something useful for those who want to use spectator but dont have access.</p>
+      <p>After much thought, I’ve decided to step away from the Orion Drift scene. It’s been a long journey, full of bullshit, src leaks, polar issues, and the 10 minutes of me figuring out exit_spec.</p>
+      <p>Since I made, and started this whole cheating thing for Orion Drift, I wanted to share something useful for those who want to use spectator but don't have access.</p>
+      
       <h2 class="section-title">First Method</h2>
       <ul>
-        <li><strong>Obtain a build</strong> of orion drift spectator. <a href="https://dl.obelous.dev/unlisted/spectator">Link</a></li>
+        <li><strong>Obtain a build</strong> of Orion Drift Spectator. <a href="https://dl.obelous.dev/unlisted/spectator">Link</a></li>
         <li><strong>Run it offline</strong>. Download the <a href="https://github.com/landlucian/A2-Spectator-Method/blob/main/startoffline.bat">offline.bat</a> and place it with A2.exe. Load the main map without connecting to mothership entitlement.</li>
       </ul>
+      <video id="method1Video" class="method-video" src="https://cdn.discordapp.com/attachments/1410382786287767803/1429620288147951748/method1.mp4?ex=68f6cd25&is=68f57ba5&hm=abd452949069015cf7ade552386e70fd5ce9bf3bd527d4295e2ee9c782e53be8&" preload="none" controls></video>
+      
       <h2 class="section-title">Second Method</h2>
       <ul>
-        <li><strong>Obtain a build</strong> of orion drift spectator <a href="https://dl.obelous.dev/unlisted/spectator">Link</a></li>
+        <li><strong>Obtain a build</strong> of Orion Drift Spectator <a href="https://dl.obelous.dev/unlisted/spectator">Link</a></li>
         <li><strong>Download UE Unlocker</strong> <a href="https://github.com/landlucian/A2-Spectator-Method/raw/refs/heads/main/UUU_v5.7.3.rar">Link</a></li>
-        <li><strong>Load Map</strong>: inject UE Unlocker, then run <code>open Station_Prime_P</code>. UI may not appear but it is loaded, just paste and load.</li>
+        <li><strong>Load Map</strong>: Inject UE Unlocker, then run <code>open Station_Prime_P</code>. UI may not appear but it is loaded, just paste and load.</li>
       </ul>
+      <video id="method2Video" class="method-video" src="https://cdn.discordapp.com/attachments/1410382786287767803/1429620291545338049/method2.mp4?ex=68f6cd26&is=68f57ba6&hm=4f0b7ff3d2483a9383b35f49b8b3f53c53336597fe4fa749d66f3057a9d20dd4&" preload="none" controls></video>
+      
       <h2 class="section-title">Closing Thoughts</h2>
-      <p>People think that unreal engine is super protected. It takes two 15-year-olds 10 minutes to cheat by a game made by a massive indie studio that makes millions a year. I hope others like stella, korp, and drycheetah continue doing what they do best. This project taught me more about how shitty another axiom and meta are, and how they do not care about the community than I ever expected.</p>
+      <p>People think that Unreal Engine is super protected. It takes two 15-year-olds 10 minutes to cheat by a game made by a massive indie studio that makes millions a year. I hope others like stella, korp, and drycheetah continue doing what they do best. This project taught me more about how shitty another axiom and meta are, and how they do not care about the community than I ever expected.</p>
       <p>Thanks for being part of the journey, keep pasting!</p>
       <div class="credits">Credits to obelous for the first method and the rest of the cheating community for everything.</div>
     </section>
@@ -124,11 +141,30 @@ ul{margin:8px 0 14px 22px;}
 <script>
 const overlay = document.getElementById('overlay');
 const audio = document.getElementById('bgAudio');
+const method1 = document.getElementById('method1Video');
+const method2 = document.getElementById('method2Video');
 
 overlay.addEventListener('click', () => {
   overlay.classList.add('hidden');
   audio.play();
 });
+
+function setupVideoControl(video) {
+  video.addEventListener('play', () => {
+    if (!audio.paused) audio.pause();
+  });
+  video.addEventListener('ended', () => {
+    audio.play();
+  });
+  video.addEventListener('pause', () => {
+    if (video.currentTime < video.duration) {
+      audio.play();
+    }
+  });
+}
+
+setupVideoControl(method1);
+setupVideoControl(method2);
 </script>
 </body>
 </html>
